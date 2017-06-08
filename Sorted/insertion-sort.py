@@ -6,7 +6,7 @@ for i in range(0, 10):
 print(a)
 
 """
-
+O(n2)
 """
 def insertionsort(a):
     for j in range(1, len(a)):
