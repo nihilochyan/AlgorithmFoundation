@@ -29,15 +29,18 @@ def merge(a, l, p, r):
         j = j + 1
         k = k + 1
 
-
-def mergesort(a, l, r):
+"""
+l = lowest index
+r = highest index
+"""
+def merge_sort(a, l, r):
     if l < r:
         p = int((l + r)/2)
-        mergesort(a, l, p)
-        mergesort(a, p+1, r)
+        merge_sort(a, l, p)
+        merge_sort(a, p+1, r)
         merge(a, l, p, r)
 
 
 if __name__ == '__main__':
-    mergesort(a, 0, len(a))
+    merge_sort(a, 0, len(a)-1)
     print(a)
