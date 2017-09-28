@@ -5,7 +5,6 @@ Cij = sigma(1,n){Aik * Bkj}
 
 from random import choice
 
-
 def generate_matrix(n):
     matrix = [[choice(range(-10, 10)) for j in range(n)] for i in range(n)]
     return matrix
