@@ -1,10 +1,10 @@
-class Node:  #http://python.jobbole.com/83953/
+class Node:  #  http://python.jobbole.com/83953/
 
-    __slots__ = ['_item','_next']    #限定Node实例的属性
+    __slots__ = ['_item', '_next']    #限定Node实例的属性
 
     def __init__(self, item):
-        self._item=item
-        self._next=None     #Node的指针部分默认指向None
+        self._item = item
+        self._next = None     #Node的指针部分默认指向None
 
     def getItem(self):
         return self._item
@@ -13,10 +13,10 @@ class Node:  #http://python.jobbole.com/83953/
         return self._next
 
     def setItem(self, newitem):
-        self._item=newitem
+        self._item = newitem
 
     def setNext(self, newnext):
-        self._next  = newnext
+        self._next = newnext
 
 
 class SingleLinkedList:
@@ -31,6 +31,7 @@ class SingleLinkedList:
         temp = Node(item)    #add在链表前端添加元素
         temp.setNext(self._head)
         self._head = temp
+        self._size += 1
 
     def append(self, item):
         temp = Node(item)
@@ -41,6 +42,7 @@ class SingleLinkedList:
             while current.getNext() != None:
                 current = current.getNext()  # 遍历链表
             current.setNext(temp)  # 此时current为链表最后的元素
+        self._size += 1
 
     def search(self, item):
         current = self._head   #search检索元素是否在链表中
@@ -80,27 +82,50 @@ class SingleLinkedList:
             else:
                 pre = current
                 current = current.getNext()
+        self._size -= 1
 
     def insert(self, pos, item):
         if pos == self._size:
             self.append(item)
+        elif pos == 0:
+            self.add(item)
         else:
             temp = Node(item)
-        count = 1
-        pre = None
+            current = self._head
+            prefix = None
+            while pos != 0:
+                prefix = current
+                current = current.getNext()
+                pos -= 1
+            prefix.setNext(temp)
+            temp.setNext(current)
+        self._size += 1
+
+    def list(self):
         current = self._head
-        while count <= pos and current != None:
-            if count == pos:
-                pre = current.get_next()
-                current.set_next(temp)
-                temp.set_next(pre)
-            else:
-                current = current.get_next()
-                count += 1
-                self._size += 1
+        print(current.getItem(), ',', end='')
+        while current.getNext() != None:
+            current = current.getNext()  # 遍历链表
+            print(current.getItem(), ',', end='')
+        print()
 
-
-
+if __name__ == '__main__':
+    singlelinkedlist = SingleLinkedList()
+    print('list size is 0: ', singlelinkedlist.isEmpty())
+    singlelinkedlist.add(5)
+    singlelinkedlist.add(7)
+    singlelinkedlist.add(8)
+    print('list size is : ', singlelinkedlist._size)
+    singlelinkedlist.append(10)
+    print('list size is : ', singlelinkedlist._size)
+    singlelinkedlist.list()
+    singlelinkedlist.remove(10)
+    singlelinkedlist.list()
+    singlelinkedlist.insert(2, 111)
+    singlelinkedlist.list()
+    print('list size is : ', singlelinkedlist._size)
+    print('Index of 7: ', singlelinkedlist.index(7))
+    print('search 111:', singlelinkedlist.search(111))
 
 
 
